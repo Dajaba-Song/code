@@ -1,5 +1,6 @@
 from selenium import webdriver
 import time
+import openpyxl
 import re
 
 from urllib.request import urlretrieve
@@ -10,6 +11,10 @@ ssl._create_default_https_context = ssl._create_unverified_context
 def cleanText(movie):
     text = re.sub('[-=+,#/\?:^$.@*\"※~&%ㆍ!』\\‘|\(\)\[\]\<\>`\'…》]', '', movie)
     return text
+
+wb = openpyxl.Workbook()
+sheet = wb.active
+sheet.append(["영화", "감독", "배우", "코드번호", "장르", "상영타입", "매출액", "관객 수"])
 
 # options = webdriver.ChromeOptions()
 # options.add_argument("headless")
@@ -99,4 +104,7 @@ for year in range(2004, 2021) :
         audience = int(audience)
         information.append(audience)
 
+        sheet.append(information)
+
+wb.save("MovieData.xlsx")
 driver.close()
