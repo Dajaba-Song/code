@@ -87,7 +87,10 @@ for year in range(2004, 2021) :
 
         # 포스터
         imageUrl = driver.find_element_by_css_selector("a.fl.thumb").get_attribute("href")
-        urlretrieve(imageUrl, 'image/'+imageName+'.jpg')
+        try :
+            urlretrieve(imageUrl, 'image/'+imageName+'.jpg')
+        except :
+            print(movie)
 
         closeBtn = driver.find_element_by_css_selector("div.hd_layer a:nth-of-type(2)")
         driver.execute_script("arguments[0].click();", closeBtn)
